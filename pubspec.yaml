@@ -1,0 +1,33 @@
+name: jwplayer
+description: A flutter plugin for the JWPlayer platform.
+version: 0.0.1
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+#  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.8
+  js: ^0.6.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.2
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: jwplayer.jwplayer
+        pluginClass: JwplayerPlugin
+      ios:
+        pluginClass: JwplayerPlugin
+      web:
+        pluginClass: JWPlayerWeb
+        fileName: web/jwplayer_web.dart
