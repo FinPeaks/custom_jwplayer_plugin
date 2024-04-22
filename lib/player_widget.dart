@@ -66,6 +66,7 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("_JWVideoPlayerState.build: _tecxtureId $_textureId");
     return _textureId == null
         ? const Center(child: CircularProgressIndicator())
         : _controller.buildView(_textureId!, onViewBuilt);
