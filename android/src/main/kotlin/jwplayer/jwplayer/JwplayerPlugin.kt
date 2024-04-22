@@ -58,7 +58,7 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
       return
     }
 
-    println(call.method)
+    println("call method>>>" + call.method)
     when (Method.valueOf(call.method)) {
       Method.init -> result.success("init")
       Method.getPlatformVersion -> result.success("4.16.1")

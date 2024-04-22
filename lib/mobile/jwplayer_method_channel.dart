@@ -70,7 +70,11 @@ class MethodChannelJWPlayer extends JWPlayerPlatform {
   @override
   Future<void> setConfig(Map<String, dynamic> config, int id) async {
     debugPrint("MethodChannelJWPlayer.setConfig: $config $id");
-    viewChannel.invokeMethod<String>('setConfig', {"config": config, "id": id});
+    try {
+      viewChannel.invokeMethod<String>('setConfig', {"config": config, "id": id});
+    } catch (e) {
+      debugPrint("MethodChannelJWPlayer.setConfig: $e");
+    }
   }
 
   @override

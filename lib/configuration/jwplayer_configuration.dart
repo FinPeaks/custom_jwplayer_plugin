@@ -97,7 +97,7 @@ class JWPlayerConfiguration {
         "image": image,
         "analytics": analytics,
         "related": related,
-        "advertising": advertising,
+        "advertising": advertising?.toMap(),
       };
 }
 

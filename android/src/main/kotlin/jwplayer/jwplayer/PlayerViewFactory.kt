@@ -43,11 +43,14 @@ class PlayerViewFactory(activity: Activity,
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        println(">>> ${call.method}")
         if (!Method.values().map { it.name }.contains(call.method)) {
             result.notImplemented()
             return
         }
 
+
+        println("${call.method} <<<<<")
         when (Method.valueOf(call.method)) {
             Method.play -> {
                 val id = call.argument<Int>("id")
@@ -63,6 +66,7 @@ class PlayerViewFactory(activity: Activity,
             }
             Method.create -> result.success(lastView)
             Method.setConfig -> {
+                println(".*>*>*>>>>>")
                 val config = call.argument<Map<String,Any>>("config")
                 val id = call.argument<Int>("id")
                 if (config != null ) {
