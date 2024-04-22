@@ -4,8 +4,7 @@ import 'package:jwplayer/player_controller.dart';
 
 class JWVideoPlayer extends StatefulWidget {
   /// Uses the given [controller] for all video rendered in this widget.
-  const JWVideoPlayer({Key? key, this.config, this.controller})
-      : super(key: key);
+  const JWVideoPlayer({super.key, this.config, this.controller});
 
   // The configuration to start with, this can be set through a controller if we should start with none.
   final JWPlayerConfiguration? config;
@@ -17,8 +16,9 @@ class JWVideoPlayer extends StatefulWidget {
   @override
   State<JWVideoPlayer> createState() => _JWVideoPlayerState();
 
-  static Future<String?> getPlatformVersion() =>
-      JWPlayerController.getPlatformVersion();
+  static Future<String?> getPlatformVersion() async {
+    return await JWPlayerController.getPlatformVersion();
+  }
 
   static Future<void> setLicenseKey(String licenseKey) =>
       JWPlayerController.setLicenseKey(licenseKey);
@@ -79,6 +79,7 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
   }
 
   Future<void> onViewBuilt(int id) async {
+    debugPrint("_JWVideoPlayerState.onViewBuilt: $id");
     if (widget.config == null) return;
     await _controller.setConfig(widget.config!.toMap(), id);
   }

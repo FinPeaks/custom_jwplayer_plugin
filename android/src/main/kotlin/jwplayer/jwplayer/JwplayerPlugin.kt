@@ -1,7 +1,7 @@
 package jwplayer.jwplayer
 
 import androidx.annotation.NonNull
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import com.jwplayer.pub.api.license.LicenseUtil
 
@@ -25,7 +25,7 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
   private lateinit var messenger: BinaryMessenger
-  private lateinit var flutterBinding: FlutterPlugin.FlutterPluginBinding
+  private lateinit var _flutterBinding: FlutterPlugin.FlutterPluginBinding
   private lateinit var eventChannel: EventChannel
   private var eventSink: QueueEventSink = QueueEventSink()
 
@@ -38,7 +38,7 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
       val factory = PlayerViewFactory(binding.activity, lifecycle, messenger, eventSink)
       val viewChannel = MethodChannel(messenger, "playerview")
       viewChannel.setMethodCallHandler(factory)
-      flutterBinding.platformViewRegistry.registerViewFactory("<platform-view-type>", factory)
+      _flutterBinding.platformViewRegistry.registerViewFactory("<platform-view-type>", factory)
   }
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -48,7 +48,7 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
 
     eventChannel = EventChannel(messenger, "com.jwplayer.view")
     eventChannel.setStreamHandler(this)
-    flutterBinding = flutterPluginBinding
+    _flutterBinding = flutterPluginBinding
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
@@ -58,12 +58,13 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
       return
     }
 
+    println(call.method)
     when (Method.valueOf(call.method)) {
       Method.init -> result.success("init")
-      Method.getPlatformVersion -> result.success("4.17.0+")
+      Method.getPlatformVersion -> result.success("4.16.1")
       Method.setLicenseKey -> { 
         val key = call.argument<String>("licenseKey")
-        LicenseUtil().setLicenseKey(flutterBinding.applicationContext, key)
+        LicenseUtil().setLicenseKey(_flutterBinding.applicationContext, key)
       }
       else -> {
         result.notImplemented()
@@ -81,7 +82,7 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
     val lifecycle = binding.activity as LifecycleOwner
-    flutterBinding.platformViewRegistry.registerViewFactory("<platform-view-type>", PlayerViewFactory(binding.activity, lifecycle, messenger, eventSink))
+    _flutterBinding.platformViewRegistry.registerViewFactory("<platform-view-type>", PlayerViewFactory(binding.activity, lifecycle, messenger, eventSink))
   }
 
   override fun onDetachedFromActivity() {

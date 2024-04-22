@@ -27,6 +27,7 @@ abstract class JWPlayerPlatform extends PlatformInterface {
   /// platform-specific class that extends [FlutterPocPlatform] when
   /// they register themselves.
   static set instance(JWPlayerPlatform instance) {
+    debugPrint("JWPlayerPlatform.instance: _token $_token");
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
@@ -44,6 +45,7 @@ abstract class JWPlayerPlatform extends PlatformInterface {
   }
 
   Future<String?> getPlatformVersion() {
+    debugPrint("JWPlayerPlatform.getPlatformVersion: ");
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 

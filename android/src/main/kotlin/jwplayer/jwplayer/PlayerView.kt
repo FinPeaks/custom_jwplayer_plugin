@@ -23,20 +23,23 @@ internal class PlayerView(context: Context?,
     EventListener {
     private var playerView: JWPlayerView
     private var mPlayer: JWPlayer? = null
-    private lateinit var config: PlayerConfig
+    private var config: PlayerConfig? = null
 
     init {
         val layout = PlayerLayout(context!!, activity!!, owner)
         playerView = layout.mPlayerView!!
         playerView.id = id
-        playerView!!.getPlayerAsync(
-            context,
-            owner,
-            JWPlayer.PlayerInitializationListener { jwPlayer: JWPlayer ->
-                mPlayer = jwPlayer
-                mPlayer?.setup(config)
-                setupListeners(jwPlayer, eventSink)
-            })
+        if(config != null) {
+
+            playerView!!.getPlayerAsync(
+                context,
+                owner,
+                JWPlayer.PlayerInitializationListener { jwPlayer: JWPlayer ->
+                    mPlayer = jwPlayer
+                    mPlayer?.setup(config)
+                    setupListeners(jwPlayer, eventSink)
+                })
+        }
     }
 
     private fun setupListeners(player: JWPlayer , eventSink: QueueEventSink) {

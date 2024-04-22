@@ -69,6 +69,7 @@ class MethodChannelJWPlayer extends JWPlayerPlatform {
 
   @override
   Future<void> setConfig(Map<String, dynamic> config, int id) async {
+    debugPrint("MethodChannelJWPlayer.setConfig: $config $id");
     viewChannel.invokeMethod<String>('setConfig', {"config": config, "id": id});
   }
 
@@ -98,6 +99,7 @@ class MethodChannelJWPlayer extends JWPlayerPlatform {
         .receiveBroadcastStream()
         .map((dynamic event) {
       final Map<dynamic, dynamic> map = event as Map<dynamic, dynamic>;
+      debugPrint("MethodChannelJWPlayer.videoEventsFor: mapevent = ${map['event']}");
       switch (map['event']) {
         case 'isReady':
           return VideoEvent(
@@ -140,6 +142,7 @@ class MethodChannelJWPlayer extends JWPlayerPlatform {
   }
 
   EventChannel _eventChannelFor(int textureId) {
+    debugPrint("MethodChannelJWPlayer._eventChannelFor: textureId = $textureId");
     return const EventChannel('com.jwplayer.view');
   }
 }

@@ -11,7 +11,6 @@ import com.jwplayer.pub.api.JWPlayer
 import com.jwplayer.pub.api.configuration.PlayerConfig
 import com.jwplayer.pub.view.JWPlayerView
 
-
 class ViewLayout (
     context: Context,
     /**
@@ -38,12 +37,17 @@ class ViewLayout (
      */
     private fun initPlayer() {
         mPlayerView = JWPlayerView(context)
-        this.addView(mPlayerView,0, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        try {
+            this.addView(mPlayerView,0, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        } catch (e: Exception) {
+            TODO("Not yet implemented")
+            println(e)
+        }
     }
 
     init {
-        initPlayer()
         try {
+            initPlayer()
         } catch (e: Exception) { /* ignore */
         }
     }

@@ -35,15 +35,11 @@ class JWVideoPlayerValue {
       this.state = PlayerState.idle});
 
   /// Returns an instance for a video that hasn't been loaded.
-  JWVideoPlayerValue.uninitialized()
-      : this(duration: Duration.zero, isInitialized: false);
+  JWVideoPlayerValue.uninitialized() : this(duration: Duration.zero, isInitialized: false);
 
   /// Returns an instance with the given [errorDescription].
   JWVideoPlayerValue.erroneous(String errorDescription)
-      : this(
-            duration: Duration.zero,
-            isInitialized: false,
-            errorDescription: errorDescription);
+      : this(duration: Duration.zero, isInitialized: false, errorDescription: errorDescription);
 
   /// The total duration of the video.
   ///
@@ -169,6 +165,7 @@ class JWPlayerController extends ValueNotifier<JWVideoPlayerValue> {
 
   static Future<String?> getPlatformVersion() async {
     return await _videoPlayerPlatform.getPlatformVersion();
+
   }
 
   Future<void> setConfig(Map<String, dynamic> config, int id) async {
