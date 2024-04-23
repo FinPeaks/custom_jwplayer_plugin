@@ -76,7 +76,6 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
-
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {

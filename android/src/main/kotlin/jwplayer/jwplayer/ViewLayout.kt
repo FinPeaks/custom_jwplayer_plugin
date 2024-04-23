@@ -40,7 +40,6 @@ class ViewLayout (
         try {
             this.addView(mPlayerView,0, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         } catch (e: Exception) {
-            TODO("Not yet implemented")
             println(e)
         }
     }

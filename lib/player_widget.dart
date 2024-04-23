@@ -82,4 +82,10 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
     if (widget.config == null) return;
     await _controller.setConfig(widget.config!.toMap(), id);
   }
+
+  @override
+  void dispose(){
+    _controller.dispose();
+    super.dispose();
+  }
 }

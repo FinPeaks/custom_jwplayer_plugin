@@ -68,9 +68,22 @@ class ConfigurationBuilder {
             println(e)
         }
 
-        if (config.has("playlistUrl")) {
-            var playlistUrl = config["playlistUrl"] as String?
-            builder.playlistUrl(playlistUrl)
+        try {
+            if (config.has("playlistUrl")) {
+                var playlistUrl = config["playlistUrl"] as String?
+                if(playlistUrl != null) {
+                    builder.playlistUrl(playlistUrl)
+                }
+            }
+        } catch (e: Exception) {
+            println(e)
+        }
+
+        if(config.has("autostart")){
+            var autostart = config["autostart"] as Boolean?
+            if(autostart != null){
+                builder.autostart(autostart)
+            }
         }
 
         builder.useTextureView(true)

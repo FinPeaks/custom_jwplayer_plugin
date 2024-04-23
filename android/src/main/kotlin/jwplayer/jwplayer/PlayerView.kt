@@ -37,6 +37,7 @@ internal class PlayerView(
         _context = context
         _eventSink = eventSink
         _owner = owner
+
         if (config != null) {
 
             playerView!!.getPlayerAsync(
