@@ -43,14 +43,13 @@ class PlayerViewFactory(activity: Activity,
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        println(">>> ${call.method}")
+
         if (!Method.values().map { it.name }.contains(call.method)) {
             result.notImplemented()
             return
         }
 
 
-        println("${call.method} <<<<<")
         when (Method.valueOf(call.method)) {
             Method.play -> {
                 val id = call.argument<Int>("id")

@@ -40,13 +40,11 @@ class ConfigurationBuilder {
         var builder = PlayerConfig.Builder()
         builder.file(getFile(config))
         if (config.has("playlist")) {
-            print("has playlist")
             builder.playlist(getPlaylist(config))
         }
 
         try {
             if (config.has("advertising")) {
-                print("has advertising")
                 var advertising = config.getJSONObject("advertising")
 
                 if (advertising.has("client") && (advertising["client"] as String?) == "VAST") {
