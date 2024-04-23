@@ -80,7 +80,6 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
   }
 
   Future<void> onViewBuilt(int id) async {
-    debugPrint("_JWVideoPlayerState.onViewBuilt: $id");
     if (widget.config == null) return;
     await _controller.setConfig(widget.config!.toMap(), id);
   }

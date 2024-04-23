@@ -66,7 +66,6 @@ class PlayerViewFactory(activity: Activity,
             }
             Method.create -> result.success(lastView)
             Method.setConfig -> {
-                println(".*>*>*>>>>>")
                 val config = call.argument<Map<String,Any>>("config")
                 val id = call.argument<Int>("id")
                 if (config != null ) {

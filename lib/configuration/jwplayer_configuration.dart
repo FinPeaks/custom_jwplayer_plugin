@@ -96,7 +96,7 @@ class JWPlayerConfiguration {
             : List<dynamic>.from(sources!.map((x) => x.toMap())),
         "image": image,
         "analytics": analytics,
-        "related": related,
+        "related": related?.toMap(),
         "advertising": advertising?.toMap(),
       };
 }
