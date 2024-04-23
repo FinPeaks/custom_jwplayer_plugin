@@ -149,6 +149,9 @@ class VideoEvent {
 /// Emitted by the platform implementation when the video is initialized or
 /// completed.
 enum VideoEventType {
+
+  toggleFullscreen,
+
   /// The player state has changed
   state,
 

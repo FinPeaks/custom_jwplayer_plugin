@@ -4,97 +4,96 @@ import com.jwplayer.pub.api.events.*
 import com.jwplayer.pub.api.events.listeners.*
 import com.jwplayer.pub.api.events.EventType.*
 
-class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListeners
-    {
+class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListeners {
 
-        //region Ad Events
+    //region Ad Events
     override fun onAdBreakEnd(p0: AdBreakEndEvent?) {
- 
+
     }
 
     override fun onAdBreakIgnored(p0: AdBreakIgnoredEvent?) {
- 
+
     }
 
     override fun onAdBreakStart(p0: AdBreakStartEvent?) {
- 
+
     }
 
     override fun onAdClick(p0: AdClickEvent?) {
- 
+
     }
 
     override fun onAdCompanions(p0: AdCompanionsEvent?) {
- 
+
     }
 
     override fun onAdComplete(p0: AdCompleteEvent?) {
- 
+
     }
 
     override fun onAdError(p0: AdErrorEvent?) {
- 
+
     }
 
     override fun onAdImpression(p0: AdImpressionEvent?) {
- 
+
     }
 
     override fun onAdMeta(p0: AdMetaEvent?) {
- 
+
     }
 
     override fun onAdPause(p0: AdPauseEvent?) {
- 
+
     }
 
     override fun onAdPlay(p0: AdPlayEvent?) {
- 
+
     }
 
     override fun onAdRequest(p0: AdRequestEvent?) {
- 
+
     }
 
     override fun onAdSchedule(p0: AdScheduleEvent?) {
- 
+
     }
 
     override fun onAdSkipped(p0: AdSkippedEvent?) {
- 
+
     }
 
     override fun onAdStarted(p0: AdStartedEvent?) {
- 
+
     }
 
     override fun onAdTime(p0: AdTimeEvent?) {
- 
+
     }
 
     override fun onAdViewableImpression(p0: AdViewableImpressionEvent?) {
- 
+
     }
 
     override fun onAdWarning(p0: AdWarningEvent?) {
- 
+
     }
     //endregion
 
     override fun onAudioTrackChanged(p0: AudioTrackChangedEvent?) {
- 
+
     }
 
     override fun onAudioTracks(p0: AudioTracksEvent?) {
- 
+
     }
 
     override fun onBeforeComplete(p0: BeforeCompleteEvent?) {
- 
+
     }
 
     override fun onBeforePlay(p0: BeforePlayEvent?) {
- 
+
     }
 
     override fun onBuffer(p0: BufferEvent?) {
@@ -109,71 +108,71 @@ class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListe
     }
 
     override fun onCaptionsChanged(p0: CaptionsChangedEvent?) {
- 
+
     }
 
     override fun onCaptionsList(p0: CaptionsListEvent?) {
- 
+
     }
 
     override fun onComplete(p0: CompleteEvent?) {
- 
+
     }
 
     override fun onControlBarVisibilityChanged(p0: ControlBarVisibilityEvent?) {
- 
+
     }
 
     override fun onControls(p0: ControlsEvent?) {
- 
+
     }
 
     override fun onDisplayClick(p0: DisplayClickEvent?) {
- 
+
     }
 
     override fun onError(p0: ErrorEvent?) {
- 
+
     }
 
     override fun onFirstFrame(p0: FirstFrameEvent?) {
- 
+
     }
 
     override fun onFullscreen(p0: FullscreenEvent?) {
- 
+        eventSink.success(mapOf("event" to "toggleFullscreen", "values" to mapOf<String, Any>()))
     }
 
     override fun onIdle(p0: IdleEvent?) {
- 
+
     }
 
     override fun onLevels(p0: LevelsEvent?) {
- 
+
     }
 
     override fun onLevelsChanged(p0: LevelsChangedEvent?) {
- 
+
     }
 
     override fun onMeta(p0: EventMessageMetadataEvent?) {
- 
+
     }
 
     override fun onMeta(p0: ExternalMetadataEvent?) {
- 
+
     }
 
     override fun onMeta(p0: InPlaylistTimedMetadataEvent?) {
- 
+
     }
 
     override fun onMeta(p0: MetaEvent?) {
- 
+
     }
 
     override fun onMute(p0: MuteEvent?) {
- 
+
     }
 
     override fun onPause(p0: PauseEvent?) {
@@ -181,11 +180,11 @@ class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListe
     }
 
     override fun onPipClose(p0: PipCloseEvent?) {
- 
+
     }
 
     override fun onPipOpen(p0: PipOpenEvent?) {
- 
+
     }
 
     override fun onPlay(p0: PlayEvent?) {
@@ -193,19 +192,19 @@ class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListe
     }
 
     override fun onPlaybackRateChanged(p0: PlaybackRateChangedEvent?) {
- 
+
     }
 
     override fun onPlaylist(p0: PlaylistEvent?) {
- 
+
     }
 
     override fun onPlaylistComplete(p0: PlaylistCompleteEvent?) {
- 
+
     }
 
     override fun onPlaylistItem(p0: PlaylistItemEvent?) {
- 
+
     }
 
     override fun onReady(p0: ReadyEvent?) {
@@ -213,27 +212,27 @@ class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListe
     }
 
     override fun onRelatedClose(p0: RelatedCloseEvent?) {
- 
+
     }
 
     override fun onRelatedOpen(p0: RelatedOpenEvent?) {
- 
+
     }
 
     override fun onRelatedPlay(p0: RelatedPlayEvent?) {
- 
+
     }
 
     override fun onSeek(p0: SeekEvent?) {
- 
+
     }
 
     override fun onSeeked(p0: SeekedEvent?) {
- 
+
     }
 
     override fun onSetupError(p0: SetupErrorEvent?) {
- 
+
     }
 
 //    override fun onSharingClick(p0: SharingClickEvent?) {
@@ -249,15 +248,15 @@ class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListe
 //    }
 
     override fun onVisualQuality(p0: VisualQualityEvent?) {
- 
+
     }
 
     override fun onVolume(p0: VolumeEvent?) {
- 
+
     }
 
     override fun onWarning(p0: WarningEvent?) {
- 
+
     }
 
     override fun onTime(p0: TimeEvent?) {
@@ -269,7 +268,7 @@ class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListe
     }
 }
 
-interface AllEventListeners:  AdvertisingEvents.OnAdBreakEndListener,
+interface AllEventListeners : AdvertisingEvents.OnAdBreakEndListener,
     AdvertisingEvents.OnAdBreakIgnoredListener,
     AdvertisingEvents.OnAdBreakStartListener,
     AdvertisingEvents.OnAdClickListener,

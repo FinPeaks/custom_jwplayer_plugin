@@ -32,7 +32,8 @@ class JWVideoPlayerValue {
       this.bufferPercentage = 0.0,
       this.bufferPosition = 0.0,
       this.errorDescription,
-      this.state = PlayerState.idle});
+      this.state = PlayerState.idle,
+      this.isFullscreen = false});
 
   /// Returns an instance for a video that hasn't been loaded.
   JWVideoPlayerValue.uninitialized() : this(duration: Duration.zero, isInitialized: false);
@@ -78,6 +79,8 @@ class JWVideoPlayerValue {
   /// [errorDescription] should have information about the problem.
   bool get hasError => errorDescription != null;
 
+  bool isFullscreen = false;
+
   /// Returns [size.width] / [size.height].
   ///
   /// Will return `1.0` if:
@@ -97,15 +100,17 @@ class JWVideoPlayerValue {
 
   /// Returns a new instance that has the same values as this current instance,
   /// except for any overrides passed in as arguments to [copyWith].
-  JWVideoPlayerValue copyWith(
-      {Duration? duration,
-      Size? size,
-      Duration? position,
-      bool? isInitialized,
-      String? errorDescription,
-      double? bufferPercentage,
-      double? bufferPosition,
-      PlayerState? state}) {
+  JWVideoPlayerValue copyWith({
+    Duration? duration,
+    Size? size,
+    Duration? position,
+    bool? isInitialized,
+    String? errorDescription,
+    double? bufferPercentage,
+    double? bufferPosition,
+    PlayerState? state,
+    bool? isFullscreen,
+  }) {
     return JWVideoPlayerValue(
         duration: duration ?? this.duration,
         size: size ?? this.size,
@@ -114,7 +119,8 @@ class JWVideoPlayerValue {
         bufferPosition: bufferPosition ?? this.bufferPosition,
         isInitialized: isInitialized ?? this.isInitialized,
         errorDescription: errorDescription ?? this.errorDescription,
-        state: state ?? this.state);
+        state: state ?? this.state,
+        isFullscreen: isFullscreen ?? this.isFullscreen);
   }
 
   @override
@@ -143,6 +149,7 @@ class JWPlayerController extends ValueNotifier<JWVideoPlayerValue> {
       : super(value ?? JWVideoPlayerValue.uninitialized());
 
   bool _isDisposed = false;
+  bool _isFullscreen = false;
   Completer<void>? _creatingCompleter;
   StreamSubscription<dynamic>? _eventSubscription;
   _JWVideoAppLifeCycleObserver? _lifeCycleObserver;
@@ -165,7 +172,6 @@ class JWPlayerController extends ValueNotifier<JWVideoPlayerValue> {
 
   static Future<String?> getPlatformVersion() async {
     return await _videoPlayerPlatform.getPlatformVersion();
-
   }
 
   Future<void> setConfig(Map<String, dynamic> config, int id) async {
@@ -259,6 +265,10 @@ class JWPlayerController extends ValueNotifier<JWVideoPlayerValue> {
         value = value.copyWith(
           state: event.state,
         );
+        break;
+      case VideoEventType.toggleFullscreen:
+        _isFullscreen =  !(value.isFullscreen == true);
+        value = value.copyWith(isFullscreen: _isFullscreen);
         break;
     }
   }

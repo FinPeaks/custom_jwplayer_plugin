@@ -103,7 +103,7 @@ class MethodChannelJWPlayer extends JWPlayerPlatform {
         .receiveBroadcastStream()
         .map((dynamic event) {
       final Map<dynamic, dynamic> map = event as Map<dynamic, dynamic>;
-      debugPrint("MethodChannelJWPlayer.videoEventsFor: mapevent = ${map['event']}");
+      debugPrint("MethodChannelJWPlayer.videoEventsFor: map['event'] ${map['event']}");
       switch (map['event']) {
         case 'isReady':
           return VideoEvent(
@@ -139,6 +139,10 @@ class MethodChannelJWPlayer extends JWPlayerPlatform {
         case 'pause':
           return VideoEvent(
               eventType: VideoEventType.state, state: PlayerState.paused);
+        case 'toggleFullscreen':
+          return VideoEvent(
+              eventType: VideoEventType.toggleFullscreen);
+
         default:
           return VideoEvent(eventType: VideoEventType.unknown);
       }
@@ -146,7 +150,6 @@ class MethodChannelJWPlayer extends JWPlayerPlatform {
   }
 
   EventChannel _eventChannelFor(int textureId) {
-    debugPrint("MethodChannelJWPlayer._eventChannelFor: textureId = $textureId");
     return const EventChannel('com.jwplayer.view');
   }
 }
