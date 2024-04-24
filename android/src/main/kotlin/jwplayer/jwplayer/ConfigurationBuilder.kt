@@ -45,20 +45,22 @@ class ConfigurationBuilder {
 
         try {
             if (config.has("advertising")) {
-                var advertising = config.getJSONObject("advertising")
+                if (config["advertising"] is JSONObject) {
+                    var advertising = config.getJSONObject("advertising")
 
-                if (advertising.has("client") && (advertising["client"] as String?) == "VAST") {
+                    if (advertising.has("client") && (advertising["client"] ) == "VAST") {
 
-                    var schedules = advertising["schedules"]
-                    if (schedules != null) {
-                        var adBreaks = toListAdBreaks(advertising.getJSONArray("schedules"))
-                        if(!adBreaks.isEmpty()){
-                            val advertisingConfig: VastAdvertisingConfig =
-                                VastAdvertisingConfig.Builder()
-                                    .schedule(adBreaks)
-                                    .build()
+                        var schedules = advertising["schedules"]
+                        if (schedules is JSONArray) {
+                            var adBreaks = toListAdBreaks(advertising.getJSONArray("schedules"))
+                            if (!adBreaks.isEmpty()) {
+                                val advertisingConfig: VastAdvertisingConfig =
+                                    VastAdvertisingConfig.Builder()
+                                        .schedule(adBreaks)
+                                        .build()
 
-                            builder.advertisingConfig(advertisingConfig)
+                                builder.advertisingConfig(advertisingConfig)
+                            }
                         }
                     }
                 }
@@ -70,8 +72,8 @@ class ConfigurationBuilder {
 
         try {
             if (config.has("playlistUrl")) {
-                var playlistUrl = config["playlistUrl"] as String?
-                if(playlistUrl != null) {
+                var playlistUrl = config["playlistUrl"]
+                if (playlistUrl is String) {
                     builder.playlistUrl(playlistUrl)
                 }
             }
@@ -79,10 +81,11 @@ class ConfigurationBuilder {
             println(e)
         }
 
-        if(config.has("autostart")){
-            var autostart = config["autostart"] as Boolean?
-            if(autostart != null){
-                builder.autostart(autostart)
+        if (config.has("autostart")) {
+            if (config["autostart"] == true) {
+                builder.autostart(true)
+            } else {
+                builder.autostart(false)
             }
         }
 
@@ -94,14 +97,13 @@ class ConfigurationBuilder {
         var adSchedule = ArrayList<AdBreak>()
         for (i in 0 until schedules.length()) {
             val schedule = schedules.getJSONObject(i)
-            var tag = schedule["tag"] as String?
-            var offset = schedule["offset"] as String?
-            if (tag != null && offset != null) {
-                val adBreak : AdBreak = AdBreak.Builder()
+            var tag = schedule["tag"]
+            var offset = schedule["offset"]
+            if (tag is String && offset is String) {
+                val adBreak: AdBreak = AdBreak.Builder()
                     .tag(tag)
                     .offset(offset)
                     .build()
-
                 adSchedule.add(adBreak)
             }
         }

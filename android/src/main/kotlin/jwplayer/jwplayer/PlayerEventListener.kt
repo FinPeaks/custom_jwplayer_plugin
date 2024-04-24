@@ -132,7 +132,7 @@ class PlayerEventListener(private val eventSink: QueueEventSink) : AllEventListe
     }
 
     override fun onError(p0: ErrorEvent?) {
-
+        println("***********" + p0)
     }
 
     override fun onFirstFrame(p0: FirstFrameEvent?) {

@@ -36,12 +36,16 @@ class ViewLayout (
      * An instance of our event handling class
      */
     private fun initPlayer() {
+
+//        mPlayerView = findViewById(R.id.jwplayer)
+//        mPlayer = mPlayerView.getPlayer(this)
+
         mPlayerView = JWPlayerView(context)
-        try {
-            this.addView(mPlayerView,0, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-        } catch (e: Exception) {
-            println(e)
-        }
+//        try {
+//            this.addView(mPlayerView,0, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+//        } catch (e: Exception) {
+//            println(e)
+//        }
     }
 
     init {
