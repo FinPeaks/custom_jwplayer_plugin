@@ -68,7 +68,8 @@ internal class PlayerView(
             JWPlayer.PlayerInitializationListener { jwPlayer: JWPlayer ->
                 mPlayer = jwPlayer
                 mPlayer?.setup(config)
-                setupListeners(jwPlayer, _eventSink)
+                mPlayer?.addListeners(PlayerEventListener(_eventSink), *AllEvents)
+//                setupListeners(mPlayer, _eventSink)
             })
     }
 

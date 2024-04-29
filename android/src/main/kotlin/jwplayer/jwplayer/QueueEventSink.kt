@@ -12,6 +12,7 @@ final class QueueEventSink: EventChannel.EventSink  {
 
     /// Adds an event sink as listener.
     fun setListener(delegate: EventSink?) {
+        println("-----" + delegate)
         mDelegate = delegate
         tryFlush()
     }

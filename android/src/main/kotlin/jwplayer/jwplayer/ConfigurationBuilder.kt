@@ -6,6 +6,7 @@ import org.json.JSONObject
 import  org.json.JSONArray
 import com.jwplayer.pub.api.media.ads.AdBreak
 import com.jwplayer.pub.api.configuration.ads.VastAdvertisingConfig
+import com.jwplayer.pub.api.configuration.ads.ima.ImaAdvertisingConfig
 
 
 class ConfigurationBuilder {
@@ -56,6 +57,22 @@ class ConfigurationBuilder {
                             if (!adBreaks.isEmpty()) {
                                 val advertisingConfig: VastAdvertisingConfig =
                                     VastAdvertisingConfig.Builder()
+                                        .schedule(adBreaks)
+                                        .build()
+
+                                builder.advertisingConfig(advertisingConfig)
+                            }
+                        }
+                    }
+
+                    if (advertising.has("client") && (advertising["client"] ) == "GOOGIMA") {
+
+                        var schedules = advertising["schedules"]
+                        if (schedules is JSONArray) {
+                            var adBreaks = toListAdBreaks(advertising.getJSONArray("schedules"))
+                            if (!adBreaks.isEmpty()) {
+                                val advertisingConfig: ImaAdvertisingConfig =
+                                    ImaAdvertisingConfig.Builder()
                                         .schedule(adBreaks)
                                         .build()
 

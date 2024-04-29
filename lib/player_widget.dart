@@ -85,6 +85,8 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
 
   @override
   void dispose(){
+    _controller.stop();
+    _controller.removeListener(() { });
     _controller.dispose();
     super.dispose();
   }
