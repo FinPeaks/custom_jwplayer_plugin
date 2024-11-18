@@ -222,14 +222,15 @@ class JWPlayerController extends ValueNotifier<JWVideoPlayerValue> {
   }
 
   void setupListeners(int id) {
-    void errorListener(Object obj) {
-      final JWPlatformException e = obj as JWPlatformException;
-      value = JWVideoPlayerValue.erroneous(e.message!);
-    }
 
     _eventSubscription = _videoPlayerPlatform
         .videoEventsFor(_textureId)
-        .listen(_eventListener, onError: errorListener);
+        .listen(_eventListener, onError: _errorListener);
+  }
+
+  void _errorListener(Object obj) {
+    final JWPlatformException e = obj as JWPlatformException;
+    value = JWVideoPlayerValue.erroneous(e.message!);
   }
 
   void _eventListener(VideoEvent event) {
@@ -279,15 +280,17 @@ class JWPlayerController extends ValueNotifier<JWVideoPlayerValue> {
       return;
     }
 
-    if (_creatingCompleter != null) {
-      await _creatingCompleter!.future;
+    // if (_creatingCompleter != null) {
+    //   await _creatingCompleter!.future;
       if (!_isDisposed) {
         _isDisposed = true;
         await _eventSubscription?.cancel();
+        debugPrint("JWPlayerController.dispose: -------");
         await _videoPlayerPlatform.dispose(_textureId);
       }
-      _lifeCycleObserver?.dispose();
-    }
+      // _lifeCycleObserver?.dispose();
+    // }
+    _lifeCycleObserver?.dispose();
     _isDisposed = true;
     super.dispose();
   }

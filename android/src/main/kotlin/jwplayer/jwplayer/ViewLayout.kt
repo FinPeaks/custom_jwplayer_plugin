@@ -11,7 +11,7 @@ import com.jwplayer.pub.api.JWPlayer
 import com.jwplayer.pub.api.configuration.PlayerConfig
 import com.jwplayer.pub.view.JWPlayerView
 
-class ViewLayout (
+class ViewLayout(
     context: Context,
     /**
      * App main activity
@@ -27,6 +27,7 @@ class ViewLayout (
     private var mPlayerView: JWPlayerView? = null
 
     private var mPlayer: JWPlayer? = null
+
     /**
      * Reference to the [PlayerConfig]
      */

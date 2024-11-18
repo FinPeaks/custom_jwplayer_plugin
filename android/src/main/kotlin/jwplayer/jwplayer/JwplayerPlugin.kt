@@ -43,7 +43,7 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     messenger = flutterPluginBinding.binaryMessenger
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "jwplayer")
+    channel = MethodChannel(messenger, "jwplayer")
     channel.setMethodCallHandler(this)
 
     eventChannel = EventChannel(messenger, "com.jwplayer.view")
@@ -84,7 +84,6 @@ class JwplayerPlugin: FlutterPlugin, MethodCallHandler, EventChannel.StreamHandl
   }
 
   override fun onDetachedFromActivity() {
-
   }
 
   override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {

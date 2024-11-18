@@ -3,7 +3,6 @@
 //import android.content.res.Configuration
 //import android.os.Bundle
 //import android.view.KeyEvent
-//import android.view.Menu
 //import androidx.appcompat.app.AppCompatActivity
 //import com.google.android.gms.cast.framework.CastContext
 //import com.jwplayer.pub.api.JWPlayer
@@ -13,6 +12,8 @@
 //import com.jwplayer.pub.api.events.listeners.VideoPlayerEvents
 //import java.util.concurrent.Executors
 //import jwplayer.jwplayer.KeepScreenOnHandler
+//import com.jwplayer.databinding.ActivityJwkotlinPlayerViewExampleBinding
+//
 //
 //class JWKotlinPlayerView : AppCompatActivity(), VideoPlayerEvents.OnFullscreenListener {
 //
@@ -22,6 +23,8 @@
 //
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
+//        binding = ActivityJwkotlinPlayerViewExampleBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
 //
 //        binding.jwplayer.getPlayerAsync(this,this) {
 //            mPlayer = it
@@ -46,11 +49,11 @@
 //
 //    }
 //
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        super.onCreateOptionsMenu(menu)
-//        fillInMenu(menu, this, this)
-//        return true
-//    }
+////    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+////        super.onCreateOptionsMenu(menu)
+////        fillInMenu(menu, this, this)
+////        return true
+////    }
 //
 //    override fun onConfigurationChanged(newConfig: Configuration) {
 //        super.onConfigurationChanged(newConfig)

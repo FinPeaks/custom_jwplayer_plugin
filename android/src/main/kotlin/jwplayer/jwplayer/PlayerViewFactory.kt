@@ -10,10 +10,12 @@ import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory
 import org.json.JSONObject
 
-class PlayerViewFactory(activity: Activity,
-                        owner: LifecycleOwner,
-                        messenger: BinaryMessenger,
-                        private val eventSink: QueueEventSink) : PlatformViewFactory(StandardMessageCodec.INSTANCE),
+class PlayerViewFactory(
+    activity: Activity,
+    owner: LifecycleOwner,
+    messenger: BinaryMessenger,
+    private val eventSink: QueueEventSink
+) : PlatformViewFactory(StandardMessageCodec.INSTANCE),
     MethodChannel.MethodCallHandler {
     private var currentActivity: Activity
     private var viewOwner: LifecycleOwner
@@ -21,6 +23,7 @@ class PlayerViewFactory(activity: Activity,
     private var channel: MethodChannel
     private var players = mutableMapOf<Int, PlayerInterface>()
     private var lastView: Int = 0
+//    private var creationParams: Map<String?, Any?>
 
 
     private enum class Method {
@@ -34,9 +37,11 @@ class PlayerViewFactory(activity: Activity,
         channel = MethodChannel(messenger, "playerview")
         channel.setMethodCallHandler(this)
     }
+
     override fun create(p0: Context?, p1: Int, p2: Any?): PlatformView {
         val creationParams = p2 as Map<String?, Any?>?
         val view = PlayerView(p0, currentActivity, eventSink, p1, viewOwner)
+
         players[p1] = view
         lastView = p1
         return view
@@ -44,37 +49,46 @@ class PlayerViewFactory(activity: Activity,
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
 
-        if (!Method.values().map { it.name }.contains(call.method)) {
-            result.notImplemented()
-            return
-        }
+//        if (!Method.values().map { it.name }.contains(call.method)) {
+//            result.notImplemented()
+//            return
+//        }
 
 
         when (Method.valueOf(call.method)) {
             Method.play -> {
-                val id = call.argument<Int>("id")
-                players[id]?.play()
+//                val id = call.argument<Int>("id")
+//                players[id]?.play()
+                players[lastView]?.play()
             }
+
             Method.pause -> {
-                val id = call.argument<Int>("id")
-                players[id]?.pause()
+//                val id = call.argument<Int>("id")
+//                players[id]?.pause()
+                players[lastView]?.pause()
             }
+
             Method.stop -> {
-                val id = call.argument<Int>("id")
-                players[id]?.stop()
+//                val id = call.argument<Int>("id")
+//                players[id]?.stop()
+                players[lastView]?.stop()
             }
+
             Method.create -> result.success(lastView)
             Method.setConfig -> {
-                val config = call.argument<Map<String,Any>>("config")
-                val id = call.argument<Int>("id")
-                if (config != null ) {
+                val config = call.argument<Map<String, Any>>("config")
+                var id = call.argument<Int>("id") as Int?
+                lastView = id!!
+                if (config != null) {
                     val builtConfig = ConfigurationBuilder().toPlayerConfig(JSONObject(config))
-                    players[id]?.setConfig(builtConfig)
+                    players[lastView]?.setConfig(builtConfig)
                 }
             }
+
             else -> {
                 result.notImplemented()
             }
         }
     }
+
 }

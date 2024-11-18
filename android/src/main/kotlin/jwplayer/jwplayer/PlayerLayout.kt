@@ -28,12 +28,13 @@ class PlayerLayout(
     private fun initPlayer() {
         mPlayerView = JWPlayerView(context)
 //        println("......" + R.id.activity_jwplayerview)
-//        mPlayerView = findViewById(R.id.activity_jwplayerview)
+//        mPlayerView = findViewById(R.id.jwplayer)
 
 //        mPlayerView = findViewById(R.id.jwplayer)
-//        val mPlayer: JWPlayer = mPlayerView.getPlayer()?
+//        val mPlayer: JWPlayer = mPlayerView!!.getPlayer(owner)
         println("----- " + mPlayerView)
         try {
+
             //add the view with 0dp width and height
 //            val layoutParams = ConstraintLayout.LayoutParams(0, 0)
 //            val view = View(context)

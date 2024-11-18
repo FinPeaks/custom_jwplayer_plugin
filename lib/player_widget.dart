@@ -34,9 +34,13 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
         });
       }
     };
+    _onRemovedListener = (){
+
+    };
   }
 
   late VoidCallback _listener;
+  late VoidCallback _onRemovedListener;
 
   int? _textureId;
 
@@ -53,7 +57,7 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
   @override
   void didUpdateWidget(JWVideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.removeListener(_listener);
+    _controller.removeListener(_onRemovedListener);
     _textureId = _controller.textureId;
     _controller.addListener(_listener);
   }
@@ -61,7 +65,7 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
   @override
   void deactivate() {
     super.deactivate();
-    _controller.removeListener(_listener);
+    _controller.removeListener(_onRemovedListener);
   }
 
   @override
@@ -86,7 +90,7 @@ class _JWVideoPlayerState extends State<JWVideoPlayer> {
   @override
   void dispose(){
     _controller.stop();
-    _controller.removeListener(() { });
+    // _controller.removeListener(_onRemovedListener);
     _controller.dispose();
     super.dispose();
   }

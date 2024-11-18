@@ -45,6 +45,7 @@ final class QueueEventSink: EventChannel.EventSink  {
             }
         }
         eventQueue.clear()
+//        mDelegate = null
     }
 
     /**

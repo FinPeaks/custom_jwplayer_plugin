@@ -28,11 +28,12 @@ internal class PlayerView(
     private var config: PlayerConfig? = null
     private var _eventSink: QueueEventSink
     private var _context: Context? = null
-    private  var _owner: LifecycleOwner
+    private var _owner: LifecycleOwner
 
     init {
         val layout = PlayerLayout(context!!, activity!!, owner)
         playerView = layout.mPlayerView!!
+        println(".......... " + playerView)
         playerView.id = id
         _context = context
         _eventSink = eventSink
@@ -61,7 +62,16 @@ internal class PlayerView(
 
     override fun setConfig(config: PlayerConfig) {
         this.config = config
-        mPlayer?.setup(config)
+//        mPlayer?.setup(config)
+
+//        mPlayer = playerView!!.getPlayer(_owner)
+//
+//        mPlayer?.setup(config)
+//        mPlayer?.addListeners(PlayerEventListener(_eventSink), *AllEvents)
+//        setupListeners(mPlayer, _eventSink)
+
+
+
         playerView!!.getPlayerAsync(
             _context,
             _owner,

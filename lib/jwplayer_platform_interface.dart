@@ -75,8 +75,9 @@ abstract class JWPlayerPlatform extends PlatformInterface {
     throw UnimplementedError('buildView() has not been implemented.');
   }
 
-  Future<void> dispose(int viewId) {
-    throw UnimplementedError('dispose() has not been implemented.');
+  Future<void> dispose(int viewId) async{
+
+    // throw UnimplementedError('dispose() has not been implemented.');
   }
 
   /// Returns a Stream of [VideoEventType]s.
