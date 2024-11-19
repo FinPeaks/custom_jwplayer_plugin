@@ -33,7 +33,6 @@ internal class PlayerView(
     init {
         val layout = PlayerLayout(context!!, activity!!, owner)
         playerView = layout.mPlayerView!!
-        println(".......... " + playerView)
         playerView.id = id
         _context = context
         _eventSink = eventSink

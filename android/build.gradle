@@ -77,6 +77,7 @@ ext.medai3ExoPlayerVersion = '1.1.1'
 ext.exoplayerVersion = '1.1.1'
 
 dependencies {
+//    def GOOGLE_IMA_VERSION=
 //    // JWP SDK classes
 //    implementation fileTree(dir: 'libs', include: 'jwplayer-core-x.x.x.aar')
 //    implementation fileTree(dir: 'libs', include: 'jwplayer-common:x-x.x.x.aar')
@@ -112,7 +113,7 @@ dependencies {
     implementation "com.jwplayer:jwplayer-chromecast:$JWPlayerVersion"
     implementation "com.jwplayer:jwplayer-ima:$JWPlayerVersion"
 
-    implementation 'com.google.ads.interactivemedia.v3:interactivemedia:${GOOGLE_IMA_VERSION}'
+    implementation 'com.google.ads.interactivemedia.v3:interactivemedia:$GOOGLE_IMA_VERSION}'
     implementation 'com.google.android.gms:play-services-ads-identifier:${GOOGLE_IMA_VERSION}'
 
     // Specify kotlin-bom to avoid Duplicate Class Errors from mismatch kotlin versions

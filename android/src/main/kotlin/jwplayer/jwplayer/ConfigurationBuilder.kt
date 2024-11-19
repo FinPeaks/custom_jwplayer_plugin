@@ -1,12 +1,12 @@
 package jwplayer.jwplayer
 
 import com.jwplayer.pub.api.configuration.PlayerConfig
-import com.jwplayer.pub.api.media.playlists.PlaylistItem
-import org.json.JSONObject
-import  org.json.JSONArray
-import com.jwplayer.pub.api.media.ads.AdBreak
 import com.jwplayer.pub.api.configuration.ads.VastAdvertisingConfig
 import com.jwplayer.pub.api.configuration.ads.ima.ImaAdvertisingConfig
+import com.jwplayer.pub.api.media.ads.AdBreak
+import com.jwplayer.pub.api.media.playlists.PlaylistItem
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class ConfigurationBuilder {
@@ -32,24 +32,38 @@ class ConfigurationBuilder {
         return config.getString("file")
     }
 
-    private fun getPlaylist(config: JSONObject): List<PlaylistItem> {
+    private fun getPlaylistItems(config: JSONObject): List<PlaylistItem> {
+        val playlistItem : PlaylistItem = PlaylistItem.Builder()
+            .file(getFile(config))
+            .startTime(getStartTime(config))
+            .build()
         var array = mutableListOf<PlaylistItem>()
+        array.add(playlistItem)
         return array
+    }
+
+    private fun getStartTime(config: JSONObject): Double {
+        if (config.has("startTime")) {
+            var startTime = config["startTime"]
+            println(startTime)
+            if (startTime is Double) {
+                return startTime
+            }
+        }
+        return 0.0
     }
 
     fun toPlayerConfig(config: JSONObject): PlayerConfig {
         var builder = PlayerConfig.Builder()
-        builder.file(getFile(config))
-        if (config.has("playlist")) {
-            builder.playlist(getPlaylist(config))
-        }
+            var playlist: List<PlaylistItem> = getPlaylistItems(config)
+            builder.playlist(playlist)
 
         try {
             if (config.has("advertising")) {
                 if (config["advertising"] is JSONObject) {
                     var advertising = config.getJSONObject("advertising")
 
-                    if (advertising.has("client") && (advertising["client"] ) == "VAST") {
+                    if (advertising.has("client") && (advertising["client"]) == "VAST") {
 
                         var schedules = advertising["schedules"]
                         if (schedules is JSONArray) {
@@ -65,7 +79,7 @@ class ConfigurationBuilder {
                         }
                     }
 
-                    if (advertising.has("client") && (advertising["client"] ) == "GOOGIMA") {
+                    if (advertising.has("client") && (advertising["client"]) == "GOOGIMA") {
 
                         var schedules = advertising["schedules"]
                         if (schedules is JSONArray) {
@@ -87,24 +101,24 @@ class ConfigurationBuilder {
             println(e)
         }
 
-        try {
-            if (config.has("playlistUrl")) {
-                var playlistUrl = config["playlistUrl"]
-                if (playlistUrl is String) {
-                    builder.playlistUrl(playlistUrl)
-                }
-            }
-        } catch (e: Exception) {
-            println(e)
-        }
+//        try {
+//            if (config.has("playlistUrl")) {
+//                var playlistUrl = config["playlistUrl"]
+//                if (playlistUrl is String) {
+//                    builder.playlistUrl(playlistUrl)
+//                }
+//            }
+//        } catch (e: Exception) {
+//            println(e)
+//        }
 
-        if (config.has("autostart")) {
-            if (config["autostart"] == true) {
-                builder.autostart(true)
-            } else {
-                builder.autostart(false)
-            }
-        }
+//        if (config.has("autostart")) {
+//            if (config["autostart"] == true) {
+//                builder.autostart(true)
+//            } else {
+//                builder.autostart(false)
+//            }
+//        }
 
         builder.useTextureView(true)
         return builder.build()

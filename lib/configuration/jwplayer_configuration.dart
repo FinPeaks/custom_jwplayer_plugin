@@ -16,6 +16,7 @@ class JWPlayerConfiguration {
     this.related,
     this.advertising,
     this.playlistUrl,
+    this.startTime,
   });
 
   String? file;
@@ -28,6 +29,7 @@ class JWPlayerConfiguration {
   Related? related;
   Advertising? advertising;
   String? playlistUrl;
+  double? startTime;
 
   JWPlayerConfiguration copyWith(
           {String? file,
@@ -39,19 +41,20 @@ class JWPlayerConfiguration {
           Analytics? analytics,
           Related? related,
           Advertising? advertising,
-          String? playlistUrl}) =>
+          String? playlistUrl,
+          double? startTime}) =>
       JWPlayerConfiguration(
-        file: file ?? this.file,
-        playlist: playlist ?? this.playlist,
-        tracks: tracks ?? this.tracks,
-        sources: sources ?? this.sources,
-        image: image ?? this.image,
-        autostart: autostart ?? this.autostart,
-        analytics: analytics ?? this.analytics,
-        related: related ?? this.related,
-        advertising: advertising ?? this.advertising,
-        playlistUrl: playlistUrl ?? this.playlistUrl,
-      );
+          file: file ?? this.file,
+          playlist: playlist ?? this.playlist,
+          tracks: tracks ?? this.tracks,
+          sources: sources ?? this.sources,
+          image: image ?? this.image,
+          autostart: autostart ?? this.autostart,
+          analytics: analytics ?? this.analytics,
+          related: related ?? this.related,
+          advertising: advertising ?? this.advertising,
+          playlistUrl: playlistUrl ?? this.playlistUrl,
+          startTime: startTime ?? this.startTime);
 
   factory JWPlayerConfiguration.fromJson(String str) =>
       JWPlayerConfiguration.fromMap(json.decode(str));
@@ -60,36 +63,51 @@ class JWPlayerConfiguration {
 
   String toJson() => json.encode(toMap());
 
-  factory JWPlayerConfiguration.fromMap(Map<String, dynamic> json) => JWPlayerConfiguration(
-        file: json["file"],
-        autostart: json["autostart"],
-        playlist: json["playlist"] == null
-            ? null
-            : List<PlaylistItem>.from(json["playlist"].map((x) => PlaylistItem.fromMap(x))),
-        tracks: json["tracks"] == null
-            ? null
-            : List<Track>.from(json["tracks"].map((x) => Track.fromMap(x))),
-        sources: json["sources"] == null
-            ? null
-            : List<Source>.from(json["sources"].map((x) => Source.fromMap(x))),
-        image: json["image"],
-        analytics: json["analytics"] == null ? null : Analytics.fromMap(json["analytics"]),
-        related: json["related"] == null ? null : Related.fromMap(json["related"]),
-        advertising: json["advertising"] == null ? null : Advertising.fromMap(json["advertising"]),
-        playlistUrl: json["playlistUrl"],
-      );
+  factory JWPlayerConfiguration.fromMap(Map<String, dynamic> json) =>
+      JWPlayerConfiguration(
+          file: json["file"],
+          autostart: json["autostart"],
+          playlist: json["playlist"] == null
+              ? null
+              : List<PlaylistItem>.from(
+                  json["playlist"].map((x) => PlaylistItem.fromMap(x))),
+          tracks: json["tracks"] == null
+              ? null
+              : List<Track>.from(json["tracks"].map((x) => Track.fromMap(x))),
+          sources: json["sources"] == null
+              ? null
+              : List<Source>.from(
+                  json["sources"].map((x) => Source.fromMap(x))),
+          image: json["image"],
+          analytics: json["analytics"] == null
+              ? null
+              : Analytics.fromMap(json["analytics"]),
+          related:
+              json["related"] == null ? null : Related.fromMap(json["related"]),
+          advertising: json["advertising"] == null
+              ? null
+              : Advertising.fromMap(json["advertising"]),
+          playlistUrl: json["playlistUrl"],
+          startTime: json["startTime"] ?? 0.0);
 
   Map<String, dynamic> toMap() => {
         "file": file,
         "autostart": autostart,
-        "playlist": playlist == null ? null : List<dynamic>.from(playlist!.map((x) => x.toMap())),
-        "tracks": tracks == null ? null : List<dynamic>.from(tracks!.map((x) => x.toMap())),
-        "sources": sources == null ? null : List<dynamic>.from(sources!.map((x) => x.toMap())),
+        "playlist": playlist == null
+            ? null
+            : List<dynamic>.from(playlist!.map((x) => x.toMap())),
+        "tracks": tracks == null
+            ? null
+            : List<dynamic>.from(tracks!.map((x) => x.toMap())),
+        "sources": sources == null
+            ? null
+            : List<dynamic>.from(sources!.map((x) => x.toMap())),
         "image": image,
         "analytics": analytics,
         "related": related?.toMap(),
         "advertising": advertising?.toMap(),
-        "playlistUrl": playlistUrl
+        "playlistUrl": playlistUrl,
+        "startTime": startTime ?? 0.0
       };
 }
 
@@ -117,14 +135,17 @@ class Advertising {
     String? tag,
   }) =>
       Advertising(
-        schedules: schedules == null ? null : List<Adbreak>.from(schedules.map((x) => x.toMap())),
+        schedules: schedules == null
+            ? null
+            : List<Adbreak>.from(schedules.map((x) => x.toMap())),
         podmessage: podmessage ?? this.podmessage,
         client: client ?? this.client,
         debug: debug ?? this.debug,
         tag: tag ?? this.tag,
       );
 
-  factory Advertising.fromJson(String str) => Advertising.fromMap(json.decode(str));
+  factory Advertising.fromJson(String str) =>
+      Advertising.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
@@ -139,8 +160,9 @@ class Advertising {
       );
 
   Map<String, dynamic> toMap() => {
-        "schedules":
-            schedules == null ? null : List<dynamic>.from(schedules!.map((x) => x.toMap())),
+        "schedules": schedules == null
+            ? null
+            : List<dynamic>.from(schedules!.map((x) => x.toMap())),
         "podmessage": podmessage,
         "client": client,
         "debug": debug,
@@ -252,7 +274,8 @@ class PlaylistItem {
         description: description ?? this.description,
       );
 
-  factory PlaylistItem.fromJson(String str) => PlaylistItem.fromMap(json.decode(str));
+  factory PlaylistItem.fromJson(String str) =>
+      PlaylistItem.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
@@ -271,11 +294,15 @@ class PlaylistItem {
       );
 
   Map<String, dynamic> toMap() => {
-        "sources": sources == null ? null : List<dynamic>.from(sources!.map((x) => x.toMap())),
+        "sources": sources == null
+            ? null
+            : List<dynamic>.from(sources!.map((x) => x.toMap())),
         "image": image,
         "title": title,
         "adschedule": adschedule,
-        "tracks": tracks == null ? null : List<dynamic>.from(tracks!.map((x) => x.toMap())),
+        "tracks": tracks == null
+            ? null
+            : List<dynamic>.from(tracks!.map((x) => x.toMap())),
         "file": file,
         "description": description,
       };
