@@ -33,13 +33,28 @@ class ConfigurationBuilder {
     }
 
     private fun getPlaylistItems(config: JSONObject): List<PlaylistItem> {
-        val playlistItem : PlaylistItem = PlaylistItem.Builder()
-            .file(getFile(config))
-            .startTime(getStartTime(config))
-            .build()
+        var image: String? = getImage(config)
+        val builder = PlaylistItem.Builder()
+            builder.file(getFile(config))
+            builder.startTime(getStartTime(config))
+
+        if(image != null){
+            builder.image(image)
+        }
+        var playlistItem : PlaylistItem  =  builder.build()
         var array = mutableListOf<PlaylistItem>()
         array.add(playlistItem)
         return array
+    }
+
+    private fun getImage(config: JSONObject): String? {
+        if (config.has("image")) {
+            if (config["image"] is String) {
+                var image = config.getString("image")
+                return image;
+            }
+        }
+        return null
     }
 
     private fun getStartTime(config: JSONObject): Double {
@@ -55,8 +70,8 @@ class ConfigurationBuilder {
 
     fun toPlayerConfig(config: JSONObject): PlayerConfig {
         var builder = PlayerConfig.Builder()
-            var playlist: List<PlaylistItem> = getPlaylistItems(config)
-            builder.playlist(playlist)
+        var playlist: List<PlaylistItem> = getPlaylistItems(config)
+        builder.playlist(playlist)
 
         try {
             if (config.has("advertising")) {
@@ -112,13 +127,13 @@ class ConfigurationBuilder {
 //            println(e)
 //        }
 
-//        if (config.has("autostart")) {
-//            if (config["autostart"] == true) {
-//                builder.autostart(true)
-//            } else {
-//                builder.autostart(false)
-//            }
-//        }
+        if (config.has("autostart")) {
+            if (config["autostart"] == true) {
+                builder.autostart(true)
+            } else {
+                builder.autostart(false)
+            }
+        }
 
         builder.useTextureView(true)
         return builder.build()
