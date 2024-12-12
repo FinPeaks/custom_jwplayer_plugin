@@ -1,6 +1,15 @@
 
 import JWPlayerKit
 import Flutter
+import Foundation
+
+
+struct PlayerConfigData: Decodable  {
+    let file: String
+    let image: String?
+    let startTime: CDouble?
+    let endTime: CDouble?
+}
 
 protocol PlayerInterface: AnyObject {
     var eventSink: FlutterEventSink? { get set }
@@ -31,21 +40,37 @@ class JWNativeView: NSObject, FlutterPlatformView, PlayerInterface {
 //    }
 
     func setConfig(config: JSON) {
-//    let arguments = call.arguments as! JSON
-//                let config = arguments["config"] as! JSON
-//                let id = arguments["id"] as! Int64
                 let decoder = JSONDecoder()
+                let encoder = JSONEncoder()
                 do {
-                    let config1 = try ConfigTransfomer(tranformable: config).toJWConfig()
-                    let externalMetaData = JWExternalMetadata(identifier: "external metaData", startTime: 40, endTime: 160)
+//                    let jsonData = try encoder.encode(config)
+//                    let configData = try decoder.decode(PlayerConfigData.self, from: jsonData)
+//                    let config1 = try ConfigTransfomer(tranformable: config).toJWConfig()
+//                    let externalMetaData = JWExternalMetadata(identifier: "external metaData", startTime: 40, endTime: 160)
     //                config.externalMetadata([externalMetaData])
     //                views?[id]?.set(config: config)
 //                    views?[id]?.setConfig(config: config)
-controller.player.configurePlayer(with: config1)
+//                let file = configData.file as String
+                let file = config["file"] as? String
+                let startTime = config["startTime"] as? Double
+                let item = try JWPlayerItemBuilder()
+                    .file(URL(string:file!)!)
+//                    .startTime(40)
+                    .startTime(ceil(startTime!))
+                    .build()
+
+                let config1 = try JWPlayerConfigurationBuilder()
+                    .playlist([item])
+                    .build()
+
+                controller.player.configurePlayer(with: config1)
+
+
+//                let config1 = try ConfigTransfomer(tranformable: config).toJWConfig()
+//        controller.player.configurePlayer(with: config1)
                 } catch {
                     print(error.localizedDescription)
                 }
-//        controller.player.configurePlayer(with: config)
     }
     
     func play() {
