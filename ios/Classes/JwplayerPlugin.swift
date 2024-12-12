@@ -14,7 +14,6 @@ public class JwplayerPlugin:  NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "jwplayer", binaryMessenger: registrar.messenger())
         let instance = JwplayerPlugin()
-        // TODO: Create API for setting this on Flutter side.
 
         let factory = JWPlayerFactory(messenger: registrar.messenger())
         registrar.register(
@@ -39,6 +38,8 @@ public class JwplayerPlugin:  NSObject, FlutterPlugin {
             result("init")
         case .getPlatformVersion:
             result(JWPlayerKit.sdkVersion)
+        case .setConfig:
+            print("setConfig")
         default:
             result(FlutterMethodNotImplemented)
         }

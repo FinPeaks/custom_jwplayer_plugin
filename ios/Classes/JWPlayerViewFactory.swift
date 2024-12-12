@@ -1,12 +1,8 @@
-//
-//  JWPlayerFactory.swift
-//  Runner
-//
-//  Created by David Perez on 05/08/22.
-//
+
 import JWPlayerKit
 import Flutter
 import Foundation
+
 
 fileprivate enum Methods: String {
     case create
@@ -51,32 +47,38 @@ class JWPlayerFactory: NSObject, FlutterPlatformViewFactory, FlutterStreamHandle
             result(FlutterMethodNotImplemented)
             return
         }
-        
         switch method {
         case .create:
             result(lastView)
         case .play:
-            let arguments = call.arguments as! [String: Any]
+            let arguments = call.arguments as! JSON
             let id = arguments["id"] as! Int64
             views?[id]?.play()
         case .pause:
-            let arguments = call.arguments as! [String: Any]
+            let arguments = call.arguments as! JSON
             let id = arguments["id"] as! Int64
             views?[id]?.pause()
         case .stop:
-             let arguments = call.arguments as! [String: Any]
+             let arguments = call.arguments as! JSON
             let id = arguments["id"] as! Int64
             views?[id]?.stop()
         case .setConfig:
-            let arguments = call.arguments as! [String: Any]
-            let config = arguments["config"] as! [String: Any]
+            let arguments = call.arguments as! JSON
+            let config = arguments["config"] as! JSON
             let id = arguments["id"] as! Int64
-            do {
-                let config = try ConfigTransfomer(tranformable: config).toJWConfig()
-                views?[id]?.setConfig(config: config)
-            } catch {
-                print(error.localizedDescription)
-            }
+
+            views?[id]?.setConfig(config: config)
+
+//            let decoder = JSONDecoder()
+//            do {
+//                let config = try ConfigTransfomer(tranformable: config).toJWConfig()
+//                let externalMetaData = JWExternalMetadata(identifier: "external metaData", startTime: 40, endTime: 160)
+////                config.externalMetadata([externalMetaData])
+////                views?[id]?.set(config: config)
+//                views?[id]?.setConfig(config: config)
+//            } catch {
+//                print(error.localizedDescription)
+//            }
         }
     }
     

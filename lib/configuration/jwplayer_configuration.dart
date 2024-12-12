@@ -17,6 +17,7 @@ class JWPlayerConfiguration {
     this.advertising,
     this.playlistUrl,
     this.startTime,
+    this.endTime,
   });
 
   String? file;
@@ -30,31 +31,36 @@ class JWPlayerConfiguration {
   Advertising? advertising;
   String? playlistUrl;
   double? startTime;
+  double? endTime;
 
-  JWPlayerConfiguration copyWith(
-          {String? file,
-          List<PlaylistItem>? playlist,
-          List<Track>? tracks,
-          List<Source>? sources,
-          String? image,
-          bool? autostart,
-          Analytics? analytics,
-          Related? related,
-          Advertising? advertising,
-          String? playlistUrl,
-          double? startTime}) =>
+  JWPlayerConfiguration copyWith({
+    String? file,
+    List<PlaylistItem>? playlist,
+    List<Track>? tracks,
+    List<Source>? sources,
+    String? image,
+    bool? autostart,
+    Analytics? analytics,
+    Related? related,
+    Advertising? advertising,
+    String? playlistUrl,
+    double? startTime,
+    double? endTime,
+  }) =>
       JWPlayerConfiguration(
-          file: file ?? this.file,
-          playlist: playlist ?? this.playlist,
-          tracks: tracks ?? this.tracks,
-          sources: sources ?? this.sources,
-          image: image ?? this.image,
-          autostart: autostart ?? this.autostart,
-          analytics: analytics ?? this.analytics,
-          related: related ?? this.related,
-          advertising: advertising ?? this.advertising,
-          playlistUrl: playlistUrl ?? this.playlistUrl,
-          startTime: startTime ?? this.startTime);
+        file: file ?? this.file,
+        playlist: playlist ?? this.playlist,
+        tracks: tracks ?? this.tracks,
+        sources: sources ?? this.sources,
+        image: image ?? this.image,
+        autostart: autostart ?? this.autostart,
+        analytics: analytics ?? this.analytics,
+        related: related ?? this.related,
+        advertising: advertising ?? this.advertising,
+        playlistUrl: playlistUrl ?? this.playlistUrl,
+        startTime: startTime ?? this.startTime,
+        endTime: endTime ?? this.endTime,
+      );
 
   factory JWPlayerConfiguration.fromJson(String str) =>
       JWPlayerConfiguration.fromMap(json.decode(str));
@@ -88,7 +94,8 @@ class JWPlayerConfiguration {
               ? null
               : Advertising.fromMap(json["advertising"]),
           playlistUrl: json["playlistUrl"],
-          startTime: json["startTime"] ?? 0.0);
+          startTime: json["startTime"] ?? 0.0,
+          endTime: json["endTime"] ?? 0.0);
 
   Map<String, dynamic> toMap() => {
         "file": file,
@@ -107,7 +114,9 @@ class JWPlayerConfiguration {
         "related": related?.toMap(),
         "advertising": advertising?.toMap(),
         "playlistUrl": playlistUrl,
-        "startTime": startTime ?? 0.0
+        "startTime": startTime ?? 0.0,
+        "position": startTime ?? 0.0,
+        "endTime": endTime ?? 0.0
       };
 }
 
@@ -237,15 +246,15 @@ class Analytics {
 }
 
 class PlaylistItem {
-  PlaylistItem({
-    this.sources,
-    this.image,
-    this.title,
-    this.adschedule,
-    this.tracks,
-    this.file,
-    this.description,
-  });
+  PlaylistItem(
+      {this.sources,
+      this.image,
+      this.title,
+      this.adschedule,
+      this.tracks,
+      this.file,
+      this.description,
+      this.position});
 
   List<Source>? sources;
   String? image;
@@ -254,25 +263,26 @@ class PlaylistItem {
   List<Track>? tracks;
   String? file;
   String? description;
+  double? position;
 
-  PlaylistItem copyWith({
-    List<Source>? sources,
-    String? image,
-    String? title,
-    String? adschedule,
-    List<Track>? tracks,
-    String? file,
-    String? description,
-  }) =>
+  PlaylistItem copyWith(
+          {List<Source>? sources,
+          String? image,
+          String? title,
+          String? adschedule,
+          List<Track>? tracks,
+          String? file,
+          String? description,
+          double? position}) =>
       PlaylistItem(
-        sources: sources ?? this.sources,
-        image: image ?? this.image,
-        title: title ?? this.title,
-        adschedule: adschedule ?? this.adschedule,
-        tracks: tracks ?? this.tracks,
-        file: file ?? this.file,
-        description: description ?? this.description,
-      );
+          sources: sources ?? this.sources,
+          image: image ?? this.image,
+          title: title ?? this.title,
+          adschedule: adschedule ?? this.adschedule,
+          tracks: tracks ?? this.tracks,
+          file: file ?? this.file,
+          description: description ?? this.description,
+          position: position ?? this.position);
 
   factory PlaylistItem.fromJson(String str) =>
       PlaylistItem.fromMap(json.decode(str));
@@ -280,18 +290,18 @@ class PlaylistItem {
   String toJson() => json.encode(toMap());
 
   factory PlaylistItem.fromMap(Map<String, dynamic> json) => PlaylistItem(
-        sources: json["sources"] == null
-            ? null
-            : List<Source>.from(json["sources"].map((x) => Source.fromMap(x))),
-        image: json["image"],
-        title: json["title"],
-        adschedule: json["adschedule"],
-        tracks: json["tracks"] == null
-            ? null
-            : List<Track>.from(json["tracks"].map((x) => Track.fromMap(x))),
-        file: json["file"],
-        description: json["description"],
-      );
+      sources: json["sources"] == null
+          ? null
+          : List<Source>.from(json["sources"].map((x) => Source.fromMap(x))),
+      image: json["image"],
+      title: json["title"],
+      adschedule: json["adschedule"],
+      tracks: json["tracks"] == null
+          ? null
+          : List<Track>.from(json["tracks"].map((x) => Track.fromMap(x))),
+      file: json["file"],
+      description: json["description"],
+      position: json["startTime"]);
 
   Map<String, dynamic> toMap() => {
         "sources": sources == null
@@ -305,6 +315,7 @@ class PlaylistItem {
             : List<dynamic>.from(tracks!.map((x) => x.toMap())),
         "file": file,
         "description": description,
+        "position": position,
       };
 }
 

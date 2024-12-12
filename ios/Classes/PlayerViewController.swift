@@ -1,9 +1,3 @@
-//
-//  PlayerEventListener.swift
-//  jwplayer
-//
-//  Created by David Perez on 06/11/22.
-//
 
 import JWPlayerKit
 import Flutter
@@ -13,6 +7,28 @@ class PlayerViewController: JWPlayerViewController {
     
     func setEventSink(_ eventSink: FlutterEventSink? ) {
         self.eventSink = eventSink
+    }
+
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        do {
+//                     // Create a JWPlayerItem
+//                     let item = try JWPlayerItemBuilder()
+//                         .file(URL(string:<#Video URL String#>)!)
+//                         .build()
+//
+//                     // Create a config, and give it the item as a playlist.
+//                     let config = try JWPlayerConfigurationBuilder()
+//                         .playlist([item])
+//                         .build()
+//
+//                     // Set the config
+//                     player.configurePlayer(with: config)
+                }
+                catch {
+                    // Handle Error
+                }
+
     }
     
     override func jwplayerIsReady(_ player: JWPlayer) {
@@ -38,7 +54,7 @@ class PlayerViewController: JWPlayerViewController {
         eventSink?(["event": "adTime", "values": eventData])
     }
     
-    override func jwplayer(_ player: AnyObject, adEvent event: JWAdEvent) {
+    override func jwplayer(_ player: JWPlayer, adEvent event: JWAdEvent) {
         super.jwplayer(player, adEvent: event)
         // Get the ad event type. stringValue is an extension.
         let eventType = event.stringValue
@@ -60,7 +76,7 @@ class PlayerViewController: JWPlayerViewController {
         default:
             break
         }
-        
+
         eventSink?(["event": eventType, "values": values])
     }
     

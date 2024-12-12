@@ -1,10 +1,3 @@
-//
-//  JWPlayerKit+Extensions.swift
-//  jwplayer
-//
-//  Created by David Perez on 08/11/22.
-//
-
 import JWPlayerKit
 
 extension JWAdEvent {

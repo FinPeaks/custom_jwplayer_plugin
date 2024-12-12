@@ -3,7 +3,7 @@
 # Run `pod lib lint jw_video_player.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'jw_video_player'
+  s.name             = 'jwplayer'
   s.version          = '0.0.1'
   s.summary          = 'A jwplayer plugin for iOS'
   s.description      = <<-DESC
