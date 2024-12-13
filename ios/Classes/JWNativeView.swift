@@ -52,12 +52,20 @@ class JWNativeView: NSObject, FlutterPlatformView, PlayerInterface {
 //                    views?[id]?.setConfig(config: config)
 //                let file = configData.file as String
                 let file = config["file"] as? String
+                let image = config["image"] as? String
                 let startTime = config["startTime"] as? Double
-                let item = try JWPlayerItemBuilder()
+                let itemBuilder = try JWPlayerItemBuilder()
                     .file(URL(string:file!)!)
-//                    .startTime(40)
-                    .startTime(ceil(startTime!))
-                    .build()
+
+                if startTime != nil {
+                    try itemBuilder.startTime(ceil(startTime!))
+                }
+
+                if image != nil && !image!.isEmpty{
+                    try itemBuilder.posterImage(URL(string:image!)!)
+                }
+
+                let item = try itemBuilder.build()
 
                 let config1 = try JWPlayerConfigurationBuilder()
                     .playlist([item])
